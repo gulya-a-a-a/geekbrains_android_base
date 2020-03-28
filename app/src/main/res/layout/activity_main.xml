@@ -15,7 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.06">
+        app:layout_constraintVertical_bias="0.05">
 
         <TextView
             android:layout_width="wrap_content"
@@ -27,11 +27,13 @@
             android:textSize="30sp" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:drawableTop="@drawable/sunny"
+            android:gravity="center_horizontal"
             android:text="@string/temperature"
+            android:textAlignment="center"
             android:textSize="50sp" />
     </LinearLayout>
 
@@ -44,7 +46,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/name_and_temp_layout"
-        app:layout_constraintVertical_bias="0.1">
+        app:layout_constraintVertical_bias="0.05">
 
         <LinearLayout
             android:id="@+id/wind_speed_layout"
@@ -64,6 +66,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:gravity="center_vertical"
                 android:paddingStart="5dp"
                 android:paddingEnd="15dp"
                 android:text="@string/wind_speed"

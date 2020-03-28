@@ -6,8 +6,10 @@
     <string name="paris">Paris</string>
     <string name="berlin">Berlin</string>
     <string name="london">London</string>
-    <string name="wing_speed_title">Wind speed:</string>
-    <string name="pressure_title">Pressure:</string>
+    <string name="wing_speed_title">Wind speed</string>
+    <string name="pressure_title">Pressure</string>
     <string name="wind_speed" translatable="false">6м/с</string>
     <string name="pressure" translatable="false">755 mm</string>
+    <string name="city_placeholder">City...</string>
+    <string name="display_settings">Display settings</string>
 </resources>

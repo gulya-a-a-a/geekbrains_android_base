@@ -5,6 +5,8 @@
     <string name="paris">Париж</string>
     <string name="berlin">Берлин</string>
     <string name="london">Лондон</string>
-    <string name="wing_speed_title">Скорость ветра:</string>
-    <string name="pressure_title">Давление:</string>
+    <string name="wing_speed_title">Скорость ветра</string>
+    <string name="pressure_title">Давление</string>
+    <string name="city_placeholder">Город...</string>
+    <string name="display_settings">Настройки отображения</string>
 </resources>
