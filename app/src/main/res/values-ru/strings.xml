@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="spb">Санкт-Петербург</string>
+    <string name="moscow">Москва</string>
+    <string name="paris">Париж</string>
+    <string name="berlin">Берлин</string>
+    <string name="london">Лондон</string>
+</resources>

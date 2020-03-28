@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">TheWeatherApp</string>
+    <string name="app_name" translatable="false">TheWeatherApp</string>
+    <string name="temperature" translatable="false">+17°C</string>
+    <string name="spb">Saint-Petersburg</string>
+    <string name="moscow">Moscow</string>
+    <string name="paris">Paris</string>
+    <string name="berlin">Berlin</string>
+    <string name="london">London</string>
 </resources>
