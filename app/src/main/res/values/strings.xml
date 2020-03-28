@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name" translatable="false">TheWeatherApp</string>
     <string name="temperature" translatable="false">+17°C</string>
     <string name="spb">Saint-Petersburg</string>
@@ -6,4 +6,8 @@
     <string name="paris">Paris</string>
     <string name="berlin">Berlin</string>
     <string name="london">London</string>
+    <string name="wing_speed_title">Wind speed:</string>
+    <string name="pressure_title">Pressure:</string>
+    <string name="wind_speed" translatable="false">6м/с</string>
+    <string name="pressure" translatable="false">755 mm</string>
 </resources>
