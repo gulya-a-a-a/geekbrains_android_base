@@ -21,4 +21,6 @@
     <string name="imperial_units_title">Imperial(°F)</string>
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
+    <string name="about_city">ABOUT CITY</string>
+    <string name="wiki_search_url" translatable="false">https://en.wikipedia.org/wiki/Special:Search?search=</string>
 </resources>
