@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="spb">Санкт-Петербург</string>
+    <string name="moscow">Москва</string>
+    <string name="paris">Париж</string>
+    <string name="berlin">Берлин</string>
+    <string name="london">Лондон</string>
+    <string name="wing_speed_title">Скорость ветра:</string>
+    <string name="pressure_title">Давление:</string>
+</resources>
