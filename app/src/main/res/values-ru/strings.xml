@@ -9,4 +9,12 @@
     <string name="pressure_title">Давление</string>
     <string name="city_placeholder">Город...</string>
     <string name="display_settings">Настройки отображения</string>
+    <string name="application_settings">Настройки приложения</string>
+    <string name="theme_setting_title">Тема:</string>
+    <string name="light_theme_title">Светлая</string>
+    <string name="dark_theme_title">Темная</string>
+    <string name="units_settings_title">Единицы измерения:</string>
+    <string name="metric_units_title">Метрические(°C)</string>
+    <string name="imperial_units_title">Имперские(°F)</string>
+    <string name="wind_speed">6 м/с</string>
 </resources>
