@@ -2,8 +2,10 @@ package com.geekbrains.theweatherapp;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -13,6 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+
+import org.w3c.dom.Text;
 
 import static com.geekbrains.theweatherapp.Parcel.PARCEL_TAG;
 
@@ -85,7 +89,8 @@ public class FragmentList extends Fragment {
 
                 getFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.weather_container_main, weather).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                        .replace(R.id.weather_container_main, weather)
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                         .commit();
             }
 
