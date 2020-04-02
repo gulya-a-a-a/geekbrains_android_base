@@ -1,7 +1,6 @@
 package com.geekbrains.theweatherapp;
 
 import android.content.Intent;
-import android.content.res.TypedArray;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,7 +18,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.time.DayOfWeek;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -46,43 +44,57 @@ public class FragmentWeather extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_weather, container, false);
 
-        mTempFormat = new DecimalFormat("+#;-#");
 
         findControls(layout);
-
-        TypedArray weather_picts = getResources().obtainTypedArray(R.array.weather_picts);
-        String[] temps = getResources().getStringArray(R.array.temps);
+        configServiceData();
 
         Parcel parcel = getParcel();
+        if (parcel == null) {
+            return layout;
+        }
 
         City city = parcel.getCity();
+        List<Weather> wths = city.getWeathers();
 
         mCityNameTV.setText(city.getCityName());
-        mTempValue.setCompoundDrawablesWithIntrinsicBounds(0,
-                city.getWeathers().get(0).getDrawableID(),
-                0, 0);
-        mTempValue.setText(mTempFormat.format(city.getWeathers().get(0).getTemp()));
-
+        setWeatherData(mTempValue, wths.get(0));
         mForecastRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),
                 LinearLayoutManager.HORIZONTAL, false));
 
-        updateForecast(city.getWeathers());
+        updateForecast(wths);
 
         setInfoButtonListener();
 
         return layout;
     }
 
-    public Parcel getParcel() {
-        return (Parcel) getArguments().getSerializable(PARCEL_TAG);
+    Parcel getParcel() {
+        Parcel parcel;
+        try {
+            parcel = (Parcel) getArguments().getSerializable(PARCEL_TAG);
+        } catch (NullPointerException ex) {
+            return null;
+        }
+        return parcel;
     }
 
-    public static FragmentWeather create(@NonNull Parcel parcel) {
+    void setWeatherData(final TextView tempTV, final Weather w) {
+        tempTV.setText(mTempFormat.format(w.getTemp()));
+        tempTV.setCompoundDrawablesWithIntrinsicBounds(0,
+                w.getDrawableID(), 0, 0);
+    }
+
+    static FragmentWeather create(@NonNull Parcel parcel) {
         FragmentWeather f = new FragmentWeather();
         Bundle b = new Bundle();
         b.putSerializable(PARCEL_TAG, parcel);
         f.setArguments(b);
         return f;
+    }
+
+    private void configServiceData() {
+        mSearchUrl = getString(R.string.wiki_search_url);
+        mTempFormat = new DecimalFormat("+#;-#");
     }
 
     private void findControls(View layout) {
@@ -92,8 +104,6 @@ public class FragmentWeather extends Fragment {
         mInfoButton = layout.findViewById(R.id.info_button);
         mTempValue = layout.findViewById(R.id.temp_value);
         mForecastRecyclerView = layout.findViewById(R.id.forecast_list);
-
-        mSearchUrl = getString(R.string.wiki_search_url);
     }
 
     private void setInfoButtonListener() {
@@ -112,7 +122,7 @@ public class FragmentWeather extends Fragment {
 
         private TextView mTempTV, mDayTV;
 
-        public ForecastHolder(LayoutInflater inflater, ViewGroup parent) {
+        ForecastHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.list_item_forecast, parent, false));
 
             mTempTV = itemView.findViewById(R.id.forecast_temp);
@@ -120,10 +130,7 @@ public class FragmentWeather extends Fragment {
         }
 
         void bind(List<Weather> weathers, final int position) {
-            mTempTV.setText(mTempFormat.format(weathers.get(position).getTemp()));
-            mTempTV.setCompoundDrawablesWithIntrinsicBounds(0,
-                    weathers.get(position).getDrawableID(), 0, 0);
-
+            setWeatherData(mTempTV, weathers.get(position));
             mDayTV.setText(getWeekDay(position));
         }
 
@@ -153,7 +160,7 @@ public class FragmentWeather extends Fragment {
 
         private List<Weather> mWeathers;
 
-        public ForecastAdapter(List<Weather> weathers) {
+        ForecastAdapter(List<Weather> weathers) {
             mWeathers = weathers;
         }
 
@@ -175,7 +182,7 @@ public class FragmentWeather extends Fragment {
         }
     }
 
-    void updateForecast(List<Weather> weathers) {
+    private void updateForecast(List<Weather> weathers) {
         mForecastRecyclerView.setAdapter(new ForecastAdapter(weathers));
     }
 }
