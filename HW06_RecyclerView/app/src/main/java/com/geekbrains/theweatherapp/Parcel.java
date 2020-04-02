@@ -7,21 +7,15 @@ public class Parcel implements Serializable {
     public static final String PARCEL_TAG = "CityData";
 
     private City mCity;
-    private String mCityName;
     private int mIndex;
 
-    Parcel(int index, String cityName, City city) {
+    Parcel(int index, City city) {
         mIndex = index;
-        mCityName = cityName;
         mCity = city;
     }
 
     public int getIndex() {
         return mIndex;
-    }
-
-    public String getCityName() {
-        return mCityName;
     }
 
     public City getCity() {

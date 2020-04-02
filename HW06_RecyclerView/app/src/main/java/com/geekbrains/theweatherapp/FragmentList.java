@@ -46,7 +46,7 @@ public class FragmentList extends Fragment {
             mCurrentCityData = (Parcel) savedInstanceState.getSerializable(PARCEL_TAG);
         } else {
             City city = new City(getResources().getStringArray(R.array.cities)[0], generateWeather(0));
-            mCurrentCityData = new Parcel(0, city.getCityName(), city);
+            mCurrentCityData = new Parcel(0, city);
         }
 
         if (mIsLandscape) {
@@ -80,7 +80,7 @@ public class FragmentList extends Fragment {
                 tv.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mCurrentCityData = new Parcel(fi, city, cityData);
+                        mCurrentCityData = new Parcel(fi, cityData);
                         showTheWeather(mCurrentCityData);
                     }
                 });
@@ -90,10 +90,10 @@ public class FragmentList extends Fragment {
 
     private List<Weather> generateWeather(final int index) {
         ArrayList<Weather> weathers = new ArrayList<>();
-        TypedArray picts = getResources().obtainTypedArray(R.array.weather_picts);
-        int pictsQuantity = picts.length();
+        TypedArray picturesArray = getResources().obtainTypedArray(R.array.weather_picts);
+        int picturesQuantity = picturesArray.length();
         for (int i = 0; i < 7; i++) {
-            weathers.add(new Weather(picts.getResourceId((int) ((Math.random() * 10) % pictsQuantity), -1),
+            weathers.add(new Weather(picturesArray.getResourceId((int) ((Math.random() * 10) % picturesQuantity), -1),
                     (int) ((Math.random() - 0.25) * 100) % 25));
         }
         return weathers;
@@ -112,7 +112,6 @@ public class FragmentList extends Fragment {
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                         .commit();
             }
-
         } else {
             Intent intent = new Intent(getActivity(), ActivityWeather.class);
             intent.putExtra(PARCEL_TAG, parcel);
