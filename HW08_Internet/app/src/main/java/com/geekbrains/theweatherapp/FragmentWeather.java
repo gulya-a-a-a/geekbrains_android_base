@@ -57,15 +57,17 @@ public class FragmentWeather extends Fragment {
         List<Weather> wths = city.getWeathers();
 
         mCityNameTV.setText(city.getCityName());
-        setWeatherData(mTempValue, wths.get(0));
-        mPressureTV.setText(String.valueOf(wths.get(0).getPressure()));
-        mWindSpeedTV.setText(String.valueOf(wths.get(0).getWindSpeed()));
-        mForecastRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),
-                LinearLayoutManager.HORIZONTAL, false));
+        if (wths.size() > 0) {
+            setWeatherData(mTempValue, wths.get(0));
+            mPressureTV.setText(String.valueOf(wths.get(0).getPressure()));
+            mWindSpeedTV.setText(String.valueOf(wths.get(0).getWindSpeed()));
+            mForecastRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),
+                    LinearLayoutManager.HORIZONTAL, false));
 
-        updateForecast(wths);
+            updateForecast(wths);
 
-        setInfoButtonListener();
+            setInfoButtonListener();
+        }
 
         return layout;
     }
@@ -182,7 +184,7 @@ public class FragmentWeather extends Fragment {
 
         @Override
         public int getItemCount() {
-            return 1;
+            return mWeathers.size();
         }
     }
 

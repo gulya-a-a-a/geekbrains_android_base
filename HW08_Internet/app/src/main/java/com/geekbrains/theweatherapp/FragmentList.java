@@ -2,10 +2,8 @@ package com.geekbrains.theweatherapp;
 
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,6 +55,9 @@ public class FragmentList extends Fragment {
         mCc = CityStorage.getInstance();
 
         configControls(view);
+        if (savedInstanceState != null){
+            initCityList(view);
+        }
     }
 
     @Override
@@ -81,7 +82,7 @@ public class FragmentList extends Fragment {
         new Thread(){
             @Override
             public void run() {
-                final JSONObject json = WeatherDownload.getWeatherData(cityName);
+                final JSONObject json = WeatherDownload.getFiveDaysForecast(cityName);
                 if (json == null){
                     handler.post(new Runnable() {
                         @Override
@@ -106,16 +107,20 @@ public class FragmentList extends Fragment {
         ArrayList<Weather> weathers = new ArrayList<>();
 
         try {
-            JSONArray jsonWeathers = json.getJSONArray("weather");
-            Weather w = new Weather();
-            w.setDrawableID(jsonWeathers.getJSONObject(0).getInt("id"));
-            w.setTemp(json.getJSONObject("main").getInt("temp"));
-            w.setPressure(json.getJSONObject("main").getInt("pressure"));
-            w.setWindSpeed(json.getJSONObject("wind").getInt("speed"));
-            weathers.add(w);
+            JSONArray jsonWeathers = json.getJSONArray("list");
+            for (int i=0;i<jsonWeathers.length();i+=8) {
+                Weather w = new Weather();
+                JSONObject jw = jsonWeathers.getJSONObject(i);
+                w.setDrawableID(jw.getJSONArray("weather").
+                        getJSONObject(0).getInt("id"));
+
+                w.setTemp(jw.getJSONObject("main").getInt("temp"));
+                w.setPressure(jw.getJSONObject("main").getInt("pressure"));
+                w.setWindSpeed(jw.getJSONObject("wind").getInt("speed"));
+                weathers.add(w);
+            }
         } catch (Exception ex){
             ex.printStackTrace();
-            return weathers;
         }
 
         return weathers;
@@ -123,7 +128,7 @@ public class FragmentList extends Fragment {
 
     private void handleWeather(JSONObject json){
         try {
-            String cityName = json.getString("name");
+            String cityName = json.getJSONObject("city").getString("name");
             City newCity = mCc.findCity(cityName);
             if (newCity == null) {
                 newCity = mCc.addCity(cityName);
@@ -187,12 +192,19 @@ public class FragmentList extends Fragment {
         });
     }
 
+    private void initCityList(View view) {
+        for (int i = 0; i < mCc.getStorageSize(); i++) {
+            City cityData = mCc.getCity(i);
+            addCityTextView(cityData, mCityListlayout, i);
+        }
+    }
+
     private void showTheWeather(Parcel parcel) {
         if (mIsLandscape) {
             assert getFragmentManager() != null;
             FragmentWeather weather = (FragmentWeather) getFragmentManager().findFragmentById(R.id.weather_container_main);
 
-            if (weather == null || weather.getParcel().getIndex() != parcel.getIndex()) {
+            if (weather == null || weather.getParcel().getCity() != parcel.getCity()) {
                 weather = FragmentWeather.create(parcel);
 
                 getFragmentManager()
