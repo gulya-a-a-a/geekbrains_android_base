@@ -59,8 +59,8 @@ public class FragmentWeather extends Fragment {
         mCityNameTV.setText(city.getCityName());
         if (wths.size() > 0) {
             setWeatherData(mTempValue, wths.get(0));
-            mPressureTV.setText(String.valueOf(wths.get(0).getPressure()));
-            mWindSpeedTV.setText(String.valueOf(wths.get(0).getWindSpeed()));
+            mPressureTV.setText(String.valueOf(wths.get(0).getPressure()) + " hPa");
+            mWindSpeedTV.setText(String.valueOf(wths.get(0).getWindSpeed()) + " mps");
             mForecastRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(),
                     LinearLayoutManager.HORIZONTAL, false));
 
@@ -83,7 +83,7 @@ public class FragmentWeather extends Fragment {
     }
 
     void setWeatherData(final TextView tempTV, final Weather w) {
-        tempTV.setText(mTempFormat.format(w.getTemp()));
+        tempTV.setText(mTempFormat.format(w.getTemp()) + '℃');
         tempTV.setCompoundDrawablesWithIntrinsicBounds(0,
                 w.getDrawableID(), 0, 0);
     }
