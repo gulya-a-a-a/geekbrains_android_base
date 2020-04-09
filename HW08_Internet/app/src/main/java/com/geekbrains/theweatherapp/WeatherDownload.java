@@ -7,8 +7,10 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import javax.net.ssl.HttpsURLConnection;
+
 class WeatherDownload {
-    private static String API_URL = "http://api.openweathermap.org/data/2.5";
+    private static String API_URL = "https://api.openweathermap.org/data/2.5";
     private static String API_KEY = "f912bb6609c3957b0ed1ba6ffcc4c5d6";
     private static String KEY_ARG = "x-api-key";
     private static String CITY_ARG = "q";
@@ -16,7 +18,7 @@ class WeatherDownload {
     private static JSONObject sendRequest(final String city, final String rt){
         try {
             URL url = new URL(String.format("%s/%s?q=%s&units=metric", API_URL, rt, city));
-            HttpURLConnection httpConnection = (HttpURLConnection) url.openConnection();
+            HttpsURLConnection httpConnection = (HttpsURLConnection) url.openConnection();
             httpConnection.addRequestProperty(CITY_ARG, city);
             httpConnection.addRequestProperty(KEY_ARG, API_KEY);
 
